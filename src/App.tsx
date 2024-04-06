@@ -2,7 +2,8 @@ import './App.css'
 import {Button, TextareaAutosize} from "@mui/material";
 import Item, {ItemData} from "./Item.tsx";
 import {useState} from "react";
-import AddTextByTemplyed from "./AddTextByTemplyed.tsx";
+import AddTextByTemplyed from "./addTextByTemplyed/AddTextByTemplyed.tsx";
+import Typography from '@mui/material/Typography';
 
 function App() {
     const [data, setData] = useState([{id: 1, term: '', determination: ''}, {id: 2, term: '', determination: ''}])
@@ -33,17 +34,6 @@ function App() {
 
 
     const handleTextSeparation = (arrValue: Omit<ItemData, 'id'>[]) => {
-        // const findedItemTerm= data.find(item=>item.term==='')
-        // const findedItemDetermination= data.find(item=>item.determination==='')
-        // if (findedItemTerm && findedItemDetermination){
-        //     const updatedDataWithId = data.map((item) => ({
-        //                      ...item,
-        //                      term: ,
-        //                      determination: arrValue[1],
-        //                  }))
-        //              setData(updatedData)
-        //              return
-        // }
         const lastDataItem = data[data.length - 1];
         const newItemId = (lastDataItem?.id ?? 0) + 1;
         const newItems = arrValue.map((item, index) => ({
@@ -55,33 +45,14 @@ function App() {
         const updatedData = [...data, ...newItems];
         setData(updatedData);
     };
-
-
-
-
-
-    // const findedItem= data.find(item=>item.term='')
-       //  if (findedItem){
-       //          const updatedData = data.map((item) => ({
-       //              ...item,
-       //              term: arrValue[0],
-       //              determination: arrValue[1],
-       //          }))
-       //      setData(updatedData)
-       //      return
-       //  }
-       //      const lastDataItem = data[data.length - 1]
-       //      const newItemId = (lastDataItem?.id ?? 0) + 1
-       //      const newItem = {id: newItemId, term: arrValue, determination:arrValue[1]}
-       //      const updateData = [...data, newItem]
-       //      setData(updateData)
-
-
-
-
-
     return (
         <>
+            <Typography variant="h4" gutterBottom>
+                Импортировать данные.
+            </Typography>
+            <Typography variant="body1" gutterBottom>
+                Скопируйте и вставьте свои данные (из Word, Excel, Google Docs и т.п.)
+            </Typography>
            <AddTextByTemplyed handleTextSeparation={handleTextSeparation}/>
             {data.map((item) => (
                 <>
