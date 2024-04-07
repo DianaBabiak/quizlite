@@ -1,34 +1,26 @@
 import {useState} from "react";
-import Item, {ItemData} from "../../featers/item/Item.tsx";
 import Typography from "@mui/material/Typography";
 import {Button} from "@mui/material";
-import s from './cards.module.scss'
+import s from './createCards.module.scss'
 import {Card} from "../../types/types.ts";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {BackLink} from "../../components/backLink/BackLink.tsx";
+import {useAppDispatch} from "../../store/store.ts";
+import {createCards} from "../../store/cardsSlice.ts";
+import {Cards} from "../../featers/cards/Cards.tsx";
 
-type CardsProps = {
 
-}
-
-export const Cards = ({}:CardsProps)=>{
+export const CreateCards = ()=>{
     const [data, setData] = useState<Card[]>([])
-    const handleDeleteItem = (idItem: number) => {
-        const updateData = data.filter(item => item.id !== idItem)
-        setData(updateData)
-    }
+    const navigate = useNavigate()
 
-    const handleChangeItem = (updatedData:ItemData) => {
-        const updatedItem = data.map((item) => {
-                if (updatedData.id === item.id) {
-                    return updatedData
-                }
-                return item
-            }
-        )
-        setData(updatedItem)
-    }
+    const dispatch = useAppDispatch()
+    const addCardsToDictionaryHandler = ()=>{
+        dispatch(createCards(data))
+        setData([])
+        navigate('/')
 
+    }
 
     const addItem = () => {
         const lastDataItem = data[data.length - 1]
@@ -43,17 +35,13 @@ export const Cards = ({}:CardsProps)=>{
             <Typography variant="h3" gutterBottom>
                 Create cards
             </Typography>
-            {data.map((item) => (
-                    <Item key={item.id} data={item} handleDeleteItem={handleDeleteItem}
-                          handleChangeItem={handleChangeItem}
-                    />
-              ))}
+            <Cards data={data} setData={setData}/>
             <div className={s.buttonContainer}>
                 <Button className={s.button} variant="contained" onClick={addItem}>Add empty card</Button>
                 <Link to={'/create/export'}>
                     <Button variant="outlined">Export cards</Button>
                 </Link>
-                <Button disabled = {data.length===0} className={s.button} variant="contained" onClick={()=>{}}>Add the cards to the dictionary  </Button>
+                <Button disabled = {data.length===0 || data[0].term === '' && data[0].determination === ''} className={s.button} variant="contained" onClick={addCardsToDictionaryHandler}>Add the cards to the dictionary  </Button>
             </div>
             </div>
     )
