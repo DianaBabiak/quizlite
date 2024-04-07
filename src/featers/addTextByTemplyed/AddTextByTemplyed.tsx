@@ -1,6 +1,6 @@
 import {Button} from "@mui/material";
 import {useState} from "react";
-import {ItemData} from "../Item.tsx";
+import {ItemData} from "../item/Item.tsx";
 import TextField from '@mui/material/TextField';
 import s from './addTextByTemplyed.module.scss'
 import Radio from '@mui/material/Radio';
@@ -37,10 +37,10 @@ function AddTextByTemplyed ({handleTextSeparation}:AddTextByTemplyed){
    }
 
     return (
-        <div>
+        <div className={s.container}>
             <TextField
                 className={s.textField}
-                label="Введите текст"
+                label="Enter text"
                 multiline
                 value={value}
                 onChange={handlerChangeInput}
@@ -51,7 +51,7 @@ function AddTextByTemplyed ({handleTextSeparation}:AddTextByTemplyed){
 
             <div className={s.radioGroupsContainer}>
                     <FormControl>
-                        <FormLabel id="definitionSeparator">Между термином и определением</FormLabel>
+                        <FormLabel id="definitionSeparator">Between a term and a definition</FormLabel>
                         <RadioGroup
                             row
                             aria-labelledby="definitionSeparator"
@@ -77,7 +77,7 @@ function AddTextByTemplyed ({handleTextSeparation}:AddTextByTemplyed){
                     </FormControl>
 
                 <FormControl>
-                    <FormLabel id="definitionSeparator">Между карточками</FormLabel>
+                    <FormLabel id="definitionSeparator">Between the cards</FormLabel>
                     <RadioGroup
                         row
                         aria-labelledby="cardSeparator"
@@ -100,7 +100,7 @@ function AddTextByTemplyed ({handleTextSeparation}:AddTextByTemplyed){
 
                     </RadioGroup>
                 </FormControl>
-                <Button onClick={handlerOnClick} sx ={{margin:'20px'}} variant="contained">Add</Button>
+                <Button onClick={handlerOnClick} variant="contained">Add Card</Button>
             </div>
 
     </div>

@@ -1,0 +1,19 @@
+.cell{
+  width:50%;
+}
+
+.thCell{
+  font-size: 45px;
+  font-weight: bold;
+  width:50%;
+  background-color:  lightgrey;
+}
+
+.container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap:30px;
+  padding: 10px;
+}
