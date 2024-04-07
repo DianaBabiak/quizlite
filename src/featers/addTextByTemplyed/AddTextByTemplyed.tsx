@@ -1,31 +1,54 @@
 import {Button} from "@mui/material";
-import {useState} from "react";
+import {ChangeEvent, useState} from "react";
 import {ItemData} from "../item/Item.tsx";
 import TextField from '@mui/material/TextField';
 import s from './addTextByTemplyed.module.scss'
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormControl from '@mui/material/FormControl';
-import FormLabel from '@mui/material/FormLabel';
+import {RadioGroupComponent} from "../../components/radioGroupComponent/RadioGroupComponent.tsx";
 
 interface AddTextByTemplyed {
     handleTextSeparation:(arrValue:Omit<ItemData, 'id'>[])=>void
 }
 export function AddTextByTemplyed ({handleTextSeparation}:AddTextByTemplyed){
     const [value, setValue]=useState('')
-    const [otherValueDefinitionSeparator, setOtherValueDefinitionSeparator] = useState('');
-    const [otherValueCardSeparator, setOtherValueCardSeparator] = useState('');
+
     const [signTermDefinition, setSignTermDefinition]=useState(' ')
     const [signBetweenCards, setSignBetweenCards]=useState('\n')
 
+    const optionsBetweenCards = [{value: "lineBreak", label:"Line break"},{value:"semicolon", label:"Semicolon"}]
+    const optionsTermDefinition = [{value: "Tab", label:"Tab"},{value:"Сomma", label:"Сomma"}]
+    const handleChangeRadioGroupTermDefinition=(value:string)=>{
+        if(value === "Tab"){
+            setSignTermDefinition(' ')
+            return
+        }
+        if(value === "Сomma"){
+            setSignTermDefinition(',')
+            return
+        }
 
-   const handlerChangeInput = (e)=>{
+        setSignTermDefinition(value)
+    }
+
+    const handleChangeRadioGroupBetweenCards=(value:string)=>{
+        if(value === "lineBreak"){
+            setSignBetweenCards('\n')
+            return
+        }
+        if(value === "semicolon"){
+            setSignBetweenCards(';')
+            return
+        }
+
+        setSignBetweenCards(value)
+    }
+
+
+    const handlerChangeInput = (e:ChangeEvent<HTMLInputElement>)=>{
       const valueInput = e.target.value
        setValue(valueInput)
    }
 
-   const handlerOnClick=()=>{
+   const handlerAddCardsClick=()=>{
         const arrayOfItemsLikeString = value.split(signBetweenCards)
        const arrayOfItemswithoutId=arrayOfItemsLikeString.map((item)=>{
            const splitedItem=item.split(signTermDefinition)
@@ -53,59 +76,9 @@ export function AddTextByTemplyed ({handleTextSeparation}:AddTextByTemplyed){
                 />
 
             <div className={s.radioGroupsContainer}>
-                    <FormControl>
-                        <FormLabel id="definitionSeparator">Between a term and a definition</FormLabel>
-                        <RadioGroup
-                            row
-                            aria-labelledby="definitionSeparator"
-                            name="definitionSeparator"
-                            defaultValue="Tab"
-                        >
-                            <FormControlLabel value="Tab" control={<Radio />} label="Tab" />
-                            <FormControlLabel value="Сomma" control={<Radio />} label="Сomma" />
-                            <FormControlLabel
-                                value="otherDefinitionSeparator"
-                                control={<Radio />}
-                                onChange={()=>{}}
-                                label=""
-                                labelPlacement="bottom"
-                            />
-                            <TextField
-                                id="otherValueDefinitionSeparator"
-                                variant="standard"
-                                value={otherValueDefinitionSeparator}
-                                onChange={()=>{}}
-                            />
-
-                        </RadioGroup>
-                    </FormControl>
-
-                <FormControl>
-                    <FormLabel id="definitionSeparator">Between the cards</FormLabel>
-                    <RadioGroup
-                        row
-                        aria-labelledby="cardSeparator"
-                        name="cardSeparator"
-                        defaultValue="lineBreak"
-                    >
-                        <FormControlLabel value="lineBreak" control={<Radio />} label="Line break" />
-                        <FormControlLabel value="semicolon" control={<Radio />} label="Semicolon" />
-                        <FormControlLabel
-                            value="otherCardSeparator"
-                            control={<Radio />}
-                            onChange={()=>{}}
-                            label=""
-                        />
-                        <TextField
-                            id="otherValueCardSeparator"
-                            variant="standard"
-                            value={otherValueCardSeparator}
-                            onChange={()=>{}}
-                        />
-
-                    </RadioGroup>
-                </FormControl>
-                <Button disabled = {!value} onClick={handlerOnClick} variant="contained">Add Cards</Button>
+                <RadioGroupComponent handleChange={handleChangeRadioGroupTermDefinition} label={'Between a term and a definition'} idTextField={"otherValueDefinitionSeparator"} options={optionsTermDefinition} defaultValue={"Tab"} name={"definitionSeparator"} />
+                <RadioGroupComponent handleChange={handleChangeRadioGroupBetweenCards} label={'Between the cards'} name={'cardSeparator'} defaultValue={"lineBreak"} idTextField={"otherValueCardSeparator"} options={optionsBetweenCards} />
+                <Button disabled = {!value} onClick={handlerAddCardsClick} variant="contained">Add Cards</Button>
             </div>
 
     </div>
