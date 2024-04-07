@@ -1,14 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import {Card} from "../types/types.ts";
+import {v1} from "uuid";
 
-interface CardsState {
+export interface CardsState {
     cards:Card[]
 }
 
 const initialState: CardsState = {
     cards: [{
-        id: 1,
+        id: v1(),
         term: 'Hi, my name is Dziana. Nice to have you on my app.',
         determination: 'Привет, меня зовут Диана. Рада видеть Вас в моем приложении.'
     }],
@@ -18,7 +19,7 @@ export const cardsSlice = createSlice({
     name: 'cards',
     initialState,
     reducers: {
-        deleteCard: (state, action: PayloadAction<number>) => {
+        deleteCard: (state, action: PayloadAction<string>) => {
             const index = state.cards.findIndex(card => card.id === action.payload);
 
             if (index !== -1) {

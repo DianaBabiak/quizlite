@@ -1,5 +1,5 @@
 export type Card = {
-    id: number
+    id: string
     term: string
     determination: string
 }
