@@ -7,7 +7,7 @@ type CardsProps={
 }
 
 export const Cards = ({data, setData}:CardsProps)=>{
-    const handleDeleteItem = (idItem: number) => {
+    const handleDeleteItem = (idItem: string) => {
         const updateData = data.filter(item => item.id !== idItem)
         setData(updateData)
     }

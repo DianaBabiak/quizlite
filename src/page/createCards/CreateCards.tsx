@@ -8,6 +8,7 @@ import {BackLink} from "../../components/backLink/BackLink.tsx";
 import {useAppDispatch} from "../../store/store.ts";
 import {createCards} from "../../store/cardsSlice.ts";
 import {Cards} from "../../featers/cards/Cards.tsx";
+import { v1 } from 'uuid'
 
 
 export const CreateCards = ()=>{
@@ -23,8 +24,7 @@ export const CreateCards = ()=>{
     }
 
     const addItem = () => {
-        const lastDataItem = data[data.length - 1]
-        const newItemId = (lastDataItem?.id ?? 0) + 1
+        const newItemId = v1()
         const newItem = {id: newItemId, term: '', determination: ''}
         const updateData = [...data, newItem]
         setData(updateData)

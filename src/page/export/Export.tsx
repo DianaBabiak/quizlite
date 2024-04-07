@@ -10,6 +10,7 @@ import {Cards} from "../../featers/cards/Cards.tsx"
 import {useNavigate} from "react-router-dom";
 import {useAppDispatch} from "../../store/store.ts";
 import {createCards} from "../../store/cardsSlice.ts";
+import { v1 } from 'uuid'
 
 export const Export = ()=>{
     const [data, setData] = useState<Card[]>([])
@@ -24,8 +25,7 @@ export const Export = ()=>{
     }
 
     const handleTextSeparation = (arrValue: Omit<ItemData, 'id'>[]) => {
-        const lastDataItem = data[data.length - 1];
-        const newItemId = (lastDataItem?.id ?? 0) + 1;
+        const newItemId = v1();
         const newItems = arrValue.map((item, index) => ({
             id: newItemId+index,
             term: item.term,
