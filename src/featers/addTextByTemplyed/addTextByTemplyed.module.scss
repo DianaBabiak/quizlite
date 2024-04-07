@@ -1,0 +1,21 @@
+.textField{
+  width: 100%;
+}
+
+.radioGroupsContainer{
+  display: flex;
+  gap:50px;
+  justify-content: space-between;
+  align-items: center;
+  width:100%;
+
+}
+
+.container{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap:30px;
+}

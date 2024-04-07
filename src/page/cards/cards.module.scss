@@ -1,0 +1,19 @@
+.container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap:20px;
+  width: 100%;
+}
+
+.button{
+  min-width:100px;
+}
+
+.buttonContainer{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap:50px;
+}

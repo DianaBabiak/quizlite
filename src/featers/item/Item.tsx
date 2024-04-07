@@ -1,5 +1,6 @@
-import {Button, Card, TextField} from "@mui/material";
+import {Button, TextField} from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
+import s from './item.module.scss'
 
 
 export interface ItemData {
@@ -17,26 +18,24 @@ function Item ({handleDeleteItem,data,handleChangeItem}:ItemProps){
 
 
     return (
-        <Card sx={{padding:'20px',
-            display:'flex'
-        }} variant="outlined">
+        <div className={s.card}>
             {data.id}
             <TextField sx={{width:'600px'
             }}
-                       label="Термин"
+                       label="term"
                        variant="outlined"
                        value={data.term}
                        onChange={(e) => handleChangeItem({...data, term: e.target.value})}
             />
             <TextField sx={{width:'600px'}}
-                       label="Определение"
+                       label="determination"
                        variant="outlined"
                        value={data.determination}
                        onChange={(e) => handleChangeItem({...data, determination: e.target.value})}
             />
             <Button onClick={()=>handleDeleteItem(data.id)} variant="outlined" startIcon={<DeleteIcon />}>Delete
             </Button>
-        </Card>
+        </div>
     )
 }
 
