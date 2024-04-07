@@ -4,14 +4,14 @@ import s from './item.module.scss'
 
 
 export interface ItemData {
-    id:number,
+    id:string,
     term:string,
     determination:string
 }
 
 interface ItemProps{
     data:ItemData
-    handleDeleteItem:(idItem:number)=>void
+    handleDeleteItem:(idItem:string)=>void
     handleChangeItem:(updatedData:ItemData)=>void
 }
 function Item ({handleDeleteItem,data,handleChangeItem}:ItemProps){
