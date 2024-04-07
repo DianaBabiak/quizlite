@@ -12,10 +12,13 @@ import FormLabel from '@mui/material/FormLabel';
 interface AddTextByTemplyed {
     handleTextSeparation:(arrValue:Omit<ItemData, 'id'>[])=>void
 }
-function AddTextByTemplyed ({handleTextSeparation}:AddTextByTemplyed){
+export function AddTextByTemplyed ({handleTextSeparation}:AddTextByTemplyed){
     const [value, setValue]=useState('')
     const [otherValueDefinitionSeparator, setOtherValueDefinitionSeparator] = useState('');
     const [otherValueCardSeparator, setOtherValueCardSeparator] = useState('');
+    const [signTermDefinition, setSignTermDefinition]=useState(' ')
+    const [signBetweenCards, setSignBetweenCards]=useState('\n')
+
 
    const handlerChangeInput = (e)=>{
       const valueInput = e.target.value
@@ -23,9 +26,9 @@ function AddTextByTemplyed ({handleTextSeparation}:AddTextByTemplyed){
    }
 
    const handlerOnClick=()=>{
-        const arrayOfItemsLikeString = value.split(';')
+        const arrayOfItemsLikeString = value.split(signBetweenCards)
        const arrayOfItemswithoutId=arrayOfItemsLikeString.map((item)=>{
-           const splitedItem=item.split('-')
+           const splitedItem=item.split(signTermDefinition)
            return {
                term: splitedItem[0],
                determination: splitedItem[1]
@@ -56,6 +59,7 @@ function AddTextByTemplyed ({handleTextSeparation}:AddTextByTemplyed){
                             row
                             aria-labelledby="definitionSeparator"
                             name="definitionSeparator"
+                            defaultValue="Tab"
                         >
                             <FormControlLabel value="Tab" control={<Radio />} label="Tab" />
                             <FormControlLabel value="Сomma" control={<Radio />} label="Сomma" />
@@ -82,6 +86,7 @@ function AddTextByTemplyed ({handleTextSeparation}:AddTextByTemplyed){
                         row
                         aria-labelledby="cardSeparator"
                         name="cardSeparator"
+                        defaultValue="lineBreak"
                     >
                         <FormControlLabel value="lineBreak" control={<Radio />} label="Line break" />
                         <FormControlLabel value="semicolon" control={<Radio />} label="Semicolon" />
@@ -100,12 +105,9 @@ function AddTextByTemplyed ({handleTextSeparation}:AddTextByTemplyed){
 
                     </RadioGroup>
                 </FormControl>
-                <Button onClick={handlerOnClick} variant="contained">Add Card</Button>
+                <Button disabled = {!value} onClick={handlerOnClick} variant="contained">Add Cards</Button>
             </div>
 
     </div>
 )
 }
-
-
-export default AddTextByTemplyed

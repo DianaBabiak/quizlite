@@ -1,11 +1,6 @@
-.cell{
-  width:50%;
-}
 
 .thCell{
-  font-size: 45px;
-  font-weight: bold;
-  width:50%;
+  width:48%;
   background-color:  lightgrey;
 }
 
@@ -16,4 +11,7 @@
   align-items: center;
   gap:30px;
   padding: 10px;
+}
+.iconDelete{
+  cursor: pointer;
 }

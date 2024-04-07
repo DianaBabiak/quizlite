@@ -1,7 +1,8 @@
 import {createBrowserRouter} from "react-router-dom";
-import {Cards} from "./page/cards/Cards.tsx";
+
 import {Export} from "./page/export/Export.tsx";
 import {ListCards} from "./page/listCards/ListCards.tsx";
+import {CreateCards} from "./page/createCards/CreateCards.tsx";
 
 export const router = createBrowserRouter([
     {
@@ -10,7 +11,7 @@ export const router = createBrowserRouter([
     },
     {
         path: "/create",
-        element: <Cards/>,
+        element: <CreateCards/>,
     },
     {
         path: "/create/export",

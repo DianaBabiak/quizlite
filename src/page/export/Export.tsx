@@ -1,32 +1,26 @@
 import Typography from "@mui/material/Typography";
-import AddTextByTemplyed from "../../featers/addTextByTemplyed/AddTextByTemplyed.tsx";
-import Item, {ItemData} from "../../featers/item/Item.tsx";
+import {ItemData} from "../../featers/item/Item.tsx";
 import {useState} from "react";
 import {Button} from "@mui/material";
 import s from './export.module.scss';
 import {Card} from "../../types/types.ts";
 import {BackLink} from "../../components/backLink/BackLink.tsx";
+import {AddTextByTemplyed} from "../../featers/addTextByTemplyed/AddTextByTemplyed.tsx";
+import {Cards} from "../../featers/cards/Cards.tsx"
+import {useNavigate} from "react-router-dom";
+import {useAppDispatch} from "../../store/store.ts";
+import {createCards} from "../../store/cardsSlice.ts";
 
-type ExportProps = {
-
-}
-
-export const Export = ({}:ExportProps)=>{
+export const Export = ()=>{
     const [data, setData] = useState<Card[]>([])
-    const handleDeleteItem = (idItem: number) => {
-        const updateData = data.filter(item => item.id !== idItem)
-        setData(updateData)
-    }
+    const navigate = useNavigate()
 
-    const handleChangeItem = (updatedData:ItemData) => {
-        const updatedItem = data.map((item) => {
-                if (updatedData.id === item.id) {
-                    return updatedData
-                }
-                return item
-            }
-        )
-        setData(updatedItem)
+    const dispatch = useAppDispatch()
+    const addCardsToDictionaryHandler = ()=>{
+        dispatch(createCards(data))
+        setData([])
+        navigate('/')
+
     }
 
     const handleTextSeparation = (arrValue: Omit<ItemData, 'id'>[]) => {
@@ -53,11 +47,8 @@ export const Export = ({}:ExportProps)=>{
                     </Typography>
                 </div>
                 <AddTextByTemplyed handleTextSeparation={handleTextSeparation}/>
-                {data.map((item) => (
-                        <Item key={item.id} data={item} handleDeleteItem={handleDeleteItem}
-                              handleChangeItem={handleChangeItem}
-                        />))}
-                <Button disabled = {data.length===0} className={s.button} variant="contained" onClick={()=>{}}>Add the cards to the dictionary  </Button>
+                <Cards data={data} setData={setData}/>
+                <Button disabled = {data.length===0} className={s.button} variant="contained" onClick={addCardsToDictionaryHandler}>Add the cards to the dictionary  </Button>
             </div>
     )
 }
