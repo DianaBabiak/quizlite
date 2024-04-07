@@ -18,7 +18,7 @@ import {deleteCard} from "../../store/cardsSlice.ts";
 export const ListCards=()=>{
    const cards =  useAppSelector(state=>state.cards.cards)
     const dispatch = useAppDispatch()
-    const deleteCardHandler = (id:number)=>{
+    const deleteCardHandler = (id:string)=>{
        dispatch(deleteCard(id))
     }
     return(
