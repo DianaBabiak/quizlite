@@ -4,38 +4,48 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Radio from "@mui/material/Radio";
 import TextField from "@mui/material/TextField";
 import FormControl from "@mui/material/FormControl";
-import {ChangeEvent, useState} from "react";
+import { ChangeEvent, useState } from "react";
 
 type Option = {
-    value:string
-    label:string
+    value: string;
+    label: string;
+};
 
-}
+type RadioGroupComponentProps = {
+    label: string;
+    name: string;
+    defaultValue: string;
+    options: Option[];
+    idTextField: string;
+    handleChange: (value: string) => void;
+};
 
-type RadioGroupComponentProps ={
-    label:string
-    name:string
-    defaultValue:string
-    options: Option[]
-    idTextField:string
-    handleChange:(value:string)=>void
-
-}
-
-export const RadioGroupComponent=({label, name, defaultValue, options, idTextField, handleChange}:RadioGroupComponentProps)=>{
-const id = `${name}id`
+export const RadioGroupComponent = ({
+                                        label,
+                                        name,
+                                        defaultValue,
+                                        options,
+                                        idTextField,
+                                        handleChange,
+                                    }: RadioGroupComponentProps) => {
+    const id = `${name}id`;
     const [valueRadioGroup, setValueRadioGroup] = useState(defaultValue);
-    const [valueTextField, setValueTextField] = useState('');
+    const [valueTextField, setValueTextField] = useState("");
 
-    const handleChangeRadioGroup = (event: ChangeEvent<HTMLInputElement>) => {
+    const handleChangeRadioGroup = (
+        event: ChangeEvent<HTMLInputElement>
+    ) => {
         setValueRadioGroup((event.target as HTMLInputElement).value);
-        handleChange(event.target.value)
+        setValueTextField("");
+        handleChange(event.target.value);
     };
 
     const handleChangeTextField = (event: ChangeEvent<HTMLInputElement>) => {
-        setValueTextField((event.target as HTMLInputElement).value);
+        const newValue = (event.target as HTMLInputElement).value;
+        setValueTextField(newValue);
+        setValueRadioGroup(newValue);
+        handleChange(newValue);
     };
-
 
     return (
         <FormControl>
@@ -48,18 +58,26 @@ const id = `${name}id`
                 value={valueRadioGroup}
                 onChange={handleChangeRadioGroup}
             >
-                {options.map(option=><FormControlLabel key={option.value} value={option.value} control={<Radio />} label={option.label} />)}
-                <FormControlLabel  value={valueTextField} control={<Radio />} label='' />
-
+                {options.map((option) => (
+                    <FormControlLabel
+                        key={option.value}
+                        value={option.value}
+                        control={<Radio />}
+                        label={option.label}
+                    />
+                ))}
+                <FormControlLabel
+                    value={valueTextField}
+                    control={<Radio />}
+                    label=''
+                />
                 <TextField
                     id={idTextField}
                     variant="standard"
                     value={valueTextField}
                     onChange={handleChangeTextField}
                 />
-
             </RadioGroup>
         </FormControl>
-
-)
-}
+    );
+};
