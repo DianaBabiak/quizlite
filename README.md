@@ -2,6 +2,15 @@
 
 Own Dictionary is a dictionary application designed for creating and managing your own vocabulary lists for learning a foreign language.
 
+## Features
+
+- **Word Entries:** Add, edit, and delete word entries with translations, examples, and notes.
+- **Responsive Design:** Built with responsive design principles for optimal use on various devices.
+- **State Management:** Utilizes Redux Toolkit for efficient state management.
+- **Routing:** Uses React Router Dom for navigation between different views.
+- **Styling:** Styled with SCSS for enhanced styling capabilities.
+- **Unique IDs:** Utilizes uuid for generating unique identifiers for dictionary entries.
+
 ## Technology Stack
 
 - **Vite:** Frontend build tool that provides fast refresh and great development experience.
